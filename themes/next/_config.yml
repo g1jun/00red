@@ -207,8 +207,8 @@ cnzz_siteid: 1252996305
 # you can visit http://dev.duoshuo.com get duoshuo user id.
 duoshuo_info:
   ua_enable: true
-  admin_enable: false
-  user_id: 0
+  admin_enable: true
+  user_id: 8245025
   #admin_nickname: ROOT
 
 
