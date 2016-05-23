@@ -1,5 +1,5 @@
 ---
-title: Swift中UIWebView与Javascript的交互
+title: Swift中UIWebView与Javascript交互解决方案
 date: 2016-03-22 14:16:44
 comments: true
 keywords: UIViewView调用js,js调用UIWebView
@@ -165,6 +165,7 @@ class JavaScriptMethod : NSObject, JavaScriptMethodProtocol {
  let jsContext = webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
  jsContext?.setObject(JavaScriptMethod(), forKeyedSubscript: "callSwift")
 ```
+#### [直接下载demo](/download/Swift中UIWebView与Javascript的交互/Demo.zip)
 以上4个步骤，实现了JavaScript调用Swift，整体流程相对复杂，比较容易出错。下面讨论Swift如何调用JavaScript代码。
 
 #### Swift调用JavaScript代码

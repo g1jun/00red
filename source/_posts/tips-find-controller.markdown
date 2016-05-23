@@ -4,7 +4,7 @@ title: "Swift快速查找Controller"
 date: 2015-05-23 14:27:10 +0800
 comments: true
 keywords: 事件响应,界面跳转,查找UIViewController
-categories: tips
+categories: experience
 ---
 
 ## 一、解决的问题

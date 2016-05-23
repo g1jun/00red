@@ -4,7 +4,7 @@ title: "XML国际电话代码国内地区服务"
 date: 2015-04-21 09:45:26 +0800
 comments: true
 keywords: IOS国际代码,地区XML,swift xml
-categories: tips
+categories: experience
 ---
 
 ## 一、解决的问题

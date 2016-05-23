@@ -29,8 +29,8 @@ menu:
   home: /
   # categories: /categories
   archives: /archives
-  experience: /categories/experience/
-  tips: /categories/tips/
+  #experience: /categories/experience/
+  #tips: /categories/tips/
   # tags: /tags
   about: /about
   #commonweal: /404.html
