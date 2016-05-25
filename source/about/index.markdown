@@ -14,7 +14,7 @@ footer: true
 ## 联系一叶
 
 
-介绍:曾任职太原方书、盛大文学, 现就职奇点国际
+介绍:曾任职盛大文学、奇点国际，现就职于铁甲二手机
 
 邮箱:g1jun@163.com
 
@@ -22,15 +22,3 @@ footer: true
 
 博客:[CSDN](http://blog.csdn.net/g1jun)  [OSChina](http://my.oschina.net/taptale)
 
-
-
-## 联系老侯
-
-
-介绍:现就职网秦
-
-邮箱:hkx.aidream@gmail.com
-
-方向: Android/java
-
-博客:[CSDN](http://blog.csdn.net/hkxxx)  [GitHub](https://github.com/houkx)
