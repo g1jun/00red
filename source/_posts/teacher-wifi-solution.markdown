@@ -169,5 +169,5 @@ IOS端WIFI应用的相关开发，主要存在以下问题
 
 ## 2016.5.25更新
 目前有不少人反馈在iOS9中文章中的一些API已经不能使用，如果要对iOS9进行适配，请大家移步：
-[http://www.jianshu.com/p/aa6219925c2e](iOS NetworkExtension/NEHotspotHelper)
+[iOS NetworkExtension/NEHotspotHelper](http://www.jianshu.com/p/aa6219925c2e)
 	
