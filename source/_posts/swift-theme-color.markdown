@@ -27,7 +27,7 @@ categories: experience
 	
 这里给出UIColor的扩展
 
-``` javascript
+``` swift
 
 extension UIColor {
     
@@ -57,7 +57,7 @@ extension UIColor {
 
 ## 二、TabBar主题色设置
 很多应用中，默认情况下都使用了TabBar控件，但是TabBar主题色等设置根据使用情况的不同，设置起来也不一样。代码创建比较灵活，更改主题色比较容易。而使用了Xib/Storyboard也是有办法做统一处理的，如下，迭代更改TabBar默认字体颜色
-``` javascript
+``` swift
 
  func configTabBar() {
         let items = self.tabBar.items
@@ -71,7 +71,7 @@ extension UIColor {
 ```
 
 设置TabBar图片及文字默认选中颜色
-``` javascript
+``` swift
         self.tabBar.selectedImageTintColor = UIColor.applicationMainColor()
 ```
 
@@ -79,7 +79,7 @@ extension UIColor {
 >  Changing this property’s value provides visual feedback in the user interface, including the running of any associated animations. The selected item displays the tab bar item’s selectedImage image, using the tab bar’s selectedImageTintColor value. To prevent system coloring of an item, provide images using the UIImageRenderingModeAlwaysOriginal rendering mode.
 
 在一些情况，正常状态为白色图片时，真机测试时，白色图片会出现偏色（显示结果为灰色），这是因为系统默认着色导致的，在创建UITabBarItem时，可通过使用UIImageRenderingModeAlwaysOriginal避免。示例代码如下：
-``` javascript
+``` swift
 let imageNormal = UIImage(contentsOfFile: "imageNormal")?.
 imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
 let imageSelected = UIImage(contentsOfFile: "imageSelected")
@@ -97,7 +97,7 @@ IOS应用中，NavigationBar十分常用，它的使用主要包括以下两个�
 **先上代码，再解释**
 #### 1.创建一个UIViewController的扩展
 	
-``` javascript 
+``` swift 
 extension UIViewController {
     func viewDidLoadForChangeTitleColor() {
         self.viewDidLoadForChangeTitleColor()
@@ -121,7 +121,7 @@ extension UIViewController {
 
 #### 2.编写用于Hook的工具类
 
-``` javascript
+``` swift
 func swizzlingMethod(clzz: AnyClass, #oldSelector: Selector, #newSelector: Selector) {
     let oldMethod = class_getInstanceMethod(clzz, oldSelector)
     let newMethod = class_getInstanceMethod(clzz, newSelector)
@@ -131,7 +131,7 @@ func swizzlingMethod(clzz: AnyClass, #oldSelector: Selector, #newSelector: Selec
 
 #### 3.在AppDelegate中调用
 
-``` javascript
+``` swift
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         swizzlingMethod(UIViewController.self, 
         oldSelector: "viewDidLoad", 
@@ -156,7 +156,7 @@ func swizzlingMethod(clzz: AnyClass, #oldSelector: Selector, #newSelector: Selec
 {% img /images/article/Swift主题色顶级解决方案/color_theme_2.png %}
 
 从上面的图可以看出，当在**viewDidLoadForChangeTitleColor**中执行：
-``` javascript
+``` swift
 self.viewDidLoadForChangeTitleColor()
 ```
 是不会造成循环调用，反而是调用了我们期望执行的**viewDidLoad**方法体。
@@ -164,7 +164,7 @@ self.viewDidLoadForChangeTitleColor()
 ## 三、Xib/Storyboard的处理
 一些在Xib/Storyboard中设置的主题色，比如文本颜色，按钮的高亮颜色等，该如何处理呢，以UILabel为例，建立扩展
 
-``` javascript
+``` swift
 extension UILabel {
     var colorString: String {
         set(newValue) {

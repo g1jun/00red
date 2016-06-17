@@ -22,14 +22,14 @@ categories: experience
 
 ### 1.1Swift调用JavaScript
 
-``` ruby
+``` swift
 self.webView.stringByEvaluatingJavaScriptFromString("alert()")
 ```
 
 ### 1.2利用重定向让HTML与Swift交互
 UIWebView没有提供直接与Swift交互方法，只能通过重定向的拦截来间接的交互，这种间接交互不能将数据返回给HTML中，有些弊端。一般用于简单的交互要求中。示例：打开举报界面(设置UIWebView的代理，并实现代理中的重定向方法)。
 
-``` ruby
+``` swift
 func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if request.URL!.absoluteString.hasPrefix("app://") {        
             //解析app://report?userId=0001逻辑
@@ -88,7 +88,7 @@ Swift中使用JavaScriptCore,实现细节点比较多，非常容易出错，使
 
 ##### 2.2.1准备好测试用HTML
 以下为用于测试的HTML代码
-```ruby
+``` html
 <html>
 
 <body>
@@ -100,7 +100,7 @@ Swift中使用JavaScriptCore,实现细节点比较多，非常容易出错，使
 ```
 将以上代码保存为**index.html**并加到项目中，并使UIWebView正确加载HTML
 
-``` ruby
+``` swift
 let path = NSBundle.mainBundle().pathForResource("index", ofType: "html")
 let html = try! String(contentsOfFile: path!)
 self.webView.loadHTMLString(html, baseURL: nil)
@@ -113,7 +113,7 @@ self.webView.loadHTMLString(html, baseURL: nil)
 
 以上内容主要说明，需要有一个继承自JSExport的协议用来告诉程序哪些方法可以在JavaScript中使用。示例代码如下：
 
-``` ruby
+``` swift
 import UIKit
 import JavaScriptCore
 
@@ -135,7 +135,7 @@ import JavaScriptCore
 ##### 2.2.3方法的具体实现逻辑
 建立一个新的类，实现**JavaScriptMethodProtocol**协议。交互方法也可以使用计算属性，每个方法也可根据需要加上返回值(下面计算属性只作示例，没有使用)。
 
-```ruby
+``` swift
 class JavaScriptMethod : NSObject, JavaScriptMethodProtocol {
     
     var value: String {
@@ -161,7 +161,7 @@ class JavaScriptMethod : NSObject, JavaScriptMethodProtocol {
 #### 2.2.4建立关联关系，实现交互
 建立关联关系时，要保证所有代码都已成功加载，示例使用本地资源，可以直接在**loadHTMLString**方法后，执行相关逻辑
 
-```ruby
+``` swift
  let jsContext = webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
  jsContext?.setObject(JavaScriptMethod(), forKeyedSubscript: "callSwift")
 ```
@@ -171,12 +171,12 @@ class JavaScriptMethod : NSObject, JavaScriptMethodProtocol {
 #### Swift调用JavaScript代码
 有两种方法可以实现Swift对JavaScript的调用
 
-``` ruby
+``` swift
 self.webView.stringByEvaluatingJavaScriptFromString("alert()")
 ```
 第二种方法
 
-```ruby
+``` swift
 let jsContext = self.webView.valueForKeyPath("documentView.webView.mainFrame.javaScriptContext") as? JSContext
 jsContext?.evaluateScript("alert()")
 ```
@@ -200,7 +200,7 @@ jsContext?.evaluateScript("alert()")
 ##### 1.加载完成建立关系
 通过设置UIWebView的delegate,在资源加载完成时，建立关联关系,会出现资源加载中，点击失效的问题
 
-```ruby
+``` swift
     func webViewDidStartLoad(webView: UIWebView) {
     	//需要判断是否正在加载，部分网页在完成加载前，会多次调用此方法
         if !webView.loading {
@@ -226,21 +226,21 @@ jsContext?.evaluateScript("alert()")
 UIWebView的根视图是UIScrollView,使用NavigationController时，多次打开并返回UIWebView所在页面时，会出现界面64点错位问题，可以按以下方法解决：
 
 ##### 1.关闭当前UIViewController的UIScrollView自动调整
-```ruby
+``` swift
 //self指当前controller
 self.automaticallyAdjustsScrollViewInsets = false
 ```
 ##### 2.调整UIWebView的Frame
-```ruby
+``` swift
 let webView = UIWebView(frame: CGRectMake(0, 64, self.view.frame.width, self.view.frame.height - 64))
 ```
 ### 3.3底部灰色条
-```ruby
+``` swift
 webView.opaque = false
 ```
 
 ### 3.4禁止选择
-```ruby
+``` swift
 self.webView.stringByEvaluatingJavaScriptFromString("document.documentElement.style.webkitUserSelect='none';")
 self.webView.stringByEvaluatingJavaScriptFromString("document.documentElement.style.webkitTouchCallout='none';")        
 ```

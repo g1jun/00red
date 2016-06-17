@@ -24,7 +24,7 @@ categories: experience
 ### 1、代码处理方法
 rootView使用**TPKeyboardAvoiding**框架中的TPKeyboardAvoidingScrollView来初使化。例如，登录界面，LoginViewController(继承自UIViewController),处理方法如下：
 
-``` javascript
+``` swift
 let rootView = TPKeyboardAvoidingScrollView(frame: self.view.bounds);
 //...
 //add all subviews to rootView
@@ -51,7 +51,7 @@ storyboard/xib处理起来更简单，将视图控制器的rootView设置为TPKe
 ### 1、常用基本设置
 包括打开键盘、关闭键盘、指定键盘的输入类型、指定return按钮的类型，如以下代码
 
-``` javascript
+``` swift
 //打开键盘
 self.inputText.becomeFirstResponder()
 //关闭键盘
@@ -66,7 +66,7 @@ self.inputText.returnKeyType = UIReturnKeyType.Go
 通过UITextField/UITextView的代理，可以更精确的控制输入，例如：过滤指定字符、超过字符数禁止输入等
 
 (1)UITextField代码如下：
-``` javascript
+``` swift
 //设置代理，可根据实际情况来设置代理，这里使用self来指定
 self.textField.delegate = self
 
@@ -91,7 +91,7 @@ func textField(textField: UITextField, shouldChangeCharactersInRange
 
 (2)UITextView代码如下：
 
-``` javascript
+``` swift
 /设置代理，可根据实际情况来设置代理，这里使用self来指定
 self.textView.delegate = self
 
@@ -152,7 +152,7 @@ UITextField/UITextView可以通过代理方法实时检测用户输入的内容,
 ### 2、代码实现
 使用第三方框架[ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa),首先实现在用户输入时，下方提示及右侧图片的功能（不使用三方框架，可自己通过代理实现）
 
-``` javascript
+``` swift
 
     @IBOutlet weak var nickTextField: UITextField!//文本输入框
     @IBOutlet weak var checkResultShowImageView: UIImageView!//输入框右侧图片
@@ -197,7 +197,7 @@ UITextField/UITextView可以通过代理方法实时检测用户输入的内容,
 
 下面实现功能：根据输入的合法性，设置按钮的enabled属性，此步骤需要下载文件[RAC语法支持文件](https://github.com/yusefnapora/ReactiveSwift/blob/master/ReactiveSwift/RAC.swift),更详细介绍[Swift支持ReactiveCocoa](http://napora.org/a-swift-reaction/)
 
-``` javascript
+``` swift
 
 func configButtonEnable() {
         RAC(self.button, "enabled") <~ RACSignal.combineLatest(
@@ -219,7 +219,7 @@ func configButtonEnable() {
 
 UITextView/UITextFiled有一个markedTextRange属性，用于标识当前是否有选中的文本（有选中文本时即为上图中的未完成输入状态），利用此原理来解决中文等类似问题
 
-``` javascript
+``` swift
 
     @IBOutlet weak var nickTextField: UITextField!
     @IBOutlet weak var checkResultShowImageView: UIImageView!

@@ -21,7 +21,7 @@ categories: experience
 
 以搜索关键词功能为例，其网络层接口如下：
 
-``` ruby
+``` swift
 class ILHTTPRequest {
     
     class func requestRecommendWords(
@@ -36,7 +36,7 @@ class ILHTTPRequest {
 
 处理结果时，需要丢弃前n-1次请求，只处理第n次返回。利用闭包的内存管理特殊性，对每一次请求签名，丢掉过时请求，处理最后一次正确的请求
 
-``` ruby
+``` swift
 class ILSearchController: UIViewController {
     
     private var signUUID = ""

@@ -24,7 +24,7 @@ IOS端WIFI应用的相关开发，主要存在以下问题
 
 ### 1.获取网卡IP
 
-``` javascript
+``` objectivec
 + (NSString *)localIPAddress
 {
     NSString *localIP = nil;
@@ -52,7 +52,7 @@ IOS端WIFI应用的相关开发，主要存在以下问题
 
 ### 2.获取网卡信息
 
-``` javascript
+``` objectivec
 - (NSDictionary *)getWIFIDic
 {
     CFArrayRef myArray = CNCopySupportedInterfaces();
@@ -137,7 +137,7 @@ IOS端WIFI应用的相关开发，主要存在以下问题
 
 如果公司部署的公共WIFI名确定的情况，就比较简单了，不需要配置上述白名单也可以保证WIFI不断开，具体办法是，在程序启动时，向IOS系统注册SSID，方法如下：
 
-``` javascript
+``` objectivec
 //注册一个SSID，注意此方法多次调用时，最后一次有效
 - (void)registerNetworkOnlyOneSSIDValidate:(NSString *)ssid
 {

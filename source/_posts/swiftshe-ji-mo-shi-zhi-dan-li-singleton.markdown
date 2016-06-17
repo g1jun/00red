@@ -31,7 +31,7 @@ Swift变化很快，目前已经更新到最新的2.0的语法，也将语言中
 
 类及结构体有很大的区别，类的**"="**关键字为传引用，结构体的**"="**关键字为传值，在Swift1.0中单独使用类或者结构体都不能实现单利，单例本身通过类来实现，唯一实例的保存通过结构体来保存，代码如下：
 
-``` ruby  单例GCD实现方式
+``` swift  单例GCD实现方式
 public class Singleton {
     
     //提供静态访问方法
@@ -59,7 +59,7 @@ public class Singleton {
 
 运行如下代码进行简单的测试：
 
-``` ruby 单例GCD实现方式测试代码
+``` swift 单例GCD实现方式测试代码
 import XCTest
 
 class SwiftSingletonTest: XCTestCase {
@@ -79,7 +79,7 @@ class SwiftSingletonTest: XCTestCase {
  
 在Swift中，static类型变量会自动实现成延迟加载，也可以更简单的实现成如下：
 
-``` ruby 延迟加载实现安全单例模式
+``` swift 延迟加载实现安全单例模式
 public class Singleton {
     //提供静态访问方法
     public class var shared: Singleton {
@@ -102,7 +102,7 @@ public class Singleton {
 ### Swift1.2及2.0实现方式
 在Swift1.2及2.0中，对关键字static做了统一支持，即类、结构的方法和属性都可以直接使用static关键字，static关键字的功能进行了扩展，所以Swift1.0的实现方式，依然可以在1.2/2.0中使用。新的实现方式如下：
 
-``` ruby 延迟加载实现安全单例模式
+``` swift 延迟加载实现安全单例模式
 public class Singleton {
 
 	//通过关键字static来保存实例引用
@@ -133,7 +133,7 @@ public class Singleton {
 
 结构体来实现单例模式，会造成内存中有多个拷贝，测试代码如下：
 
-``` ruby 不正确的单例实现方式
+``` swift 不正确的单例实现方式
 struct SwiftSingleton {
     var name: String = "1"
     static let shared = SwiftSingleton()

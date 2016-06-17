@@ -27,28 +27,28 @@ categories: experience
 
 1、API说明
 获取所有国家电话代码
-``` javascript
+``` swift
 public class func asyncGetAllCountries(callback: (countries: [ILCountry]) -> (Void))
 ```
 
 获取国内所省份
-``` javascript
+``` swift
 public class func asyncGetAllProvinces(callback:(provinces: [ILProvince]) -> (Void))
 ```
 
 根据省份ID获取所有城市
-``` javascript
+``` swift
 public class func asyncGetAllCities(provinceId: String, callback: (cities: [ILCity]) -> (Void))
 ```
 
 根据城市ID获取所有县区
-``` javascript
+``` swift
 public class func asyncGetAllDistrict(cityId: String, callback: (districts: [ILDistrict]) -> (Void))
 ```
 
 
 2、使用国家电话代码示例
-``` javascript
+``` swift
 ILXMLParse.asyncGetAllCountries { (countries) -> (Void) in
             self.allCountries = countries
             self.tableView.reloadData()
@@ -60,7 +60,7 @@ ILXMLParse.asyncGetAllCountries { (countries) -> (Void) in
 
 1、实体类代码
 
-``` javascript
+``` swift
 
 public class ILCountry: JSONModel {
     var Country_name: NSString!
@@ -92,7 +92,7 @@ public class ILDistrict: JSONModel {
 
 2、*ILXMLParse*功能实现类代码
 
-``` javascript
+``` swift
 public class ILXMLParse: NSObject {
     
     //获取所有国家电话代码

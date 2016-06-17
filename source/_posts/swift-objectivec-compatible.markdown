@@ -62,7 +62,7 @@ Swift之IOS项目，在Xcode6创建类文件，默认会自动选择OS X标签�
 #### 2.2.1 Objective-c调用Swift代码两个步骤
 第一步告诉Xcode哪些类需要使用(继承自NSObject的类自动处理，不需要此步骤)，通过关键字**@objc(className)**来标记
 
-``` javascript 
+``` swift 
 import UIKit
 
 @objc(ILWriteBySwift)
@@ -102,7 +102,7 @@ class ILWriteBySwift {
 
 在混合编程的项目中，由于两种语言的同时使用，经常会出现以下需求：在Swift项目中需要使用Objectvie-c写的A类，而A类又会用到Swift的一些功能，头文件的循环，导致编译器不能正确构建**$(SWIFT_MODULE_NAME)-Swift.h**，遇到此问题时，在.h文件做如下处理
 
-``` javascript
+``` swift
 //删除以下头文件
 //#import "ILSwift-Swift.h"
 //通过代码导入类
@@ -150,12 +150,12 @@ Swift项目在使用Xib/StoryBoard时，会遇到两种不同的问题
 ### 3.1 Xib不加载视图内容
 在创建UIViewController时，默认选中Xib文件，在Xib与类文件名一致时，可通过以下代码实例化：
 
-``` javascript
+``` swift
 let controller = ILViewController()
 ```
 运行，界面上空无一物，Xib没有被加载。解决办法，在类的前面加上**@objc(类名)**，例如：
  
-``` javascript
+``` swift
 import UIKit
 
 @objc(ILViewController)
@@ -198,7 +198,7 @@ Swift语言引入了Module概念，在通过关键字**@objc(类名)**做转换�
 ## 四、Objective-c巧妙调用不兼容的Swift方法
 在Objective-c中调用Swift类中的方法时，由于部分Swift语法不支持转换，会遇到无法找到对应方法的情况，如下：
 
-``` javascript
+``` swift
 import UIKit
 
 enum HTTPState {
@@ -221,7 +221,7 @@ class ILHTTPRequest: NSObject {
 
 对应的**$(SWIFT_MODULE_NAME)-Swift.h**文件为：
 
-``` javascript
+``` swift
 SWIFT_CLASS("_TtC12ILSwiftTests13ILHTTPRequest")
 @interface ILHTTPRequest : NSObject
 - (SWIFT_NULLABILITY(nonnull) instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -233,7 +233,7 @@ SWIFT_CLASS("_TtC12ILSwiftTests13ILHTTPRequest")
 
 在Swift文件中，添加一个可兼容包装方法**wrapRequestLogin**,注意此方法中不能使用不兼容的类型或者语法
 
-``` javascript
+``` swift
 import UIKit
 
 enum HTTPState: Int {
@@ -262,7 +262,7 @@ class ILHTTPRequest: NSObject {
 
 对应的**$(SWIFT_MODULE_NAME)-Swift.h**文件为：
 
-``` javascript
+``` swift
 SWIFT_CLASS("_TtC12ILSwiftTests13ILHTTPRequest")
 @interface ILHTTPRequest : NSObject
 + (void)wrapRequestLogin:(NSString * __nonnull)userName password:(NSString * __nonnull)password callback:(void (^ __nonnull)(NSInteger))callback;
@@ -275,7 +275,7 @@ SWIFT_CLASS("_TtC12ILSwiftTests13ILHTTPRequest")
 
 使用继承可以支持所有的Swift类型，主要的功能在Objective-c中实现，不支持的语法在Swift文件中调用，例如，**ILLoginSuperController**做为父类
 
-``` javascript
+``` swift
 @interface ILLoginSuperController : UIViewController
 @property (weak, nonatomic) IBOutlet UITextField *userNameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -297,7 +297,7 @@ SWIFT_CLASS("_TtC12ILSwiftTests13ILHTTPRequest")
 
 创建Swift文件，继承自**ILLoginSuperController**，在此Swift文件中调用那些不支持的语法
 
-``` javascript
+``` swift
 import UIKit
 
 class ILLoginController: ILLoginSuperController {
@@ -355,7 +355,7 @@ Swift项目取消了预编译文件，一些第三方Objective-c库没有导入�
 
 在Swift中可以使用JSONModel部分简单功能，一些复杂的数据模型建议使用Objevtive-c
 
-``` javascript
+``` swift
 import UIKit
 
 

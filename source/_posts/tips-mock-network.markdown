@@ -26,7 +26,7 @@ categories: experience
 ### 2.1模拟网络代码
 
 
-```ruby
+``` swift
 //是否模拟开关
 let ILMOCK_OPEN: Bool = true
 
@@ -85,7 +85,7 @@ class ILMock: NSObject {
 ### 2.2具体使用
 例如：模拟登陆请求
 
-``` ruby
+``` swift
     class func requestLogin(userName: String!, password: String!,
         	successCallBack:((userModel:ILUserModel!)->(Void)),
         	failedCallBack:(state: HTTPResultState)->(Void)){
@@ -103,7 +103,7 @@ class ILMock: NSObject {
 
 模拟获取用户列表
 
-``` ruby
+``` swift
     class func requestUserList(userId: String,
             successCallBack:((userModels:[ILUserModel]!)->(Void)),
             failedCallBack:(state: HTTPResultState)->(Void)) {
@@ -117,6 +117,7 @@ class ILMock: NSObject {
         
         //实现获取用户列表的逻辑...
     }
+    
 ```
 
 ### 2.3使用说明

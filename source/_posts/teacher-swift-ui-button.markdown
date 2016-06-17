@@ -25,12 +25,12 @@ categories: experience
 
 ### 2.1创建
 UIButton提供了一个简单的构造方法
-``` javascript
+``` swift
 convenience init(type buttonType: UIButtonType)
 ```
 此方法中需要我们传入一个**UIButtonType**枚举类型，使用代码如下：
 
-``` javascript
+``` swift
     func createButton() {
         let button = UIButton(type: UIButtonType.System)
         button.frame = CGRectMake(50, 50, 100, 50)
@@ -45,18 +45,18 @@ convenience init(type buttonType: UIButtonType)
 ```
 #### Tips:
 1.设置按钮标题时，一定要通过
-``` javascript
+``` swift
     func setTitle(_ title: String?, forState state: UIControlState)
 ```
 不可通过
-``` javascript
+``` swift
     button.titleLabel?.text = "确定"
 ```
 此方式会在点击时标题自动变为**setTitle**方法Normal状态下的文字
 
 ### 2.2图片使用
 UIButton提供了以下两个接口使用图片：
-``` javascript
+``` swift
     func setImage(image: UIImage?, forState state: UIControlState)
     func setBackgroundImage(image: UIImage?, forState state: UIControlState) 
 ```
@@ -73,11 +73,11 @@ UIButton提供了以下两个接口使用图片：
 ##### 2.2.1.1 原理说明
 
 在UIImage接口中，有以下方法
-``` javascript
+``` swift
 func resizableImageWithCapInsets(_ capInsets: UIEdgeInsets) -> UIImage
 ```
 使用此方法时，需要传递**UIEdgeInsets**作为参数，创建接口如下：
-``` javascript
+``` swift
 func UIEdgeInsetsMake(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> UIEdgeInsets
 ```
 这个方法提供了上下左右的参数来创建**可变区域**,如下图（Tips:下图标明的可变区域与视图内边距是不同的概念）
@@ -93,7 +93,7 @@ func UIEdgeInsetsMake(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ righ
 
 iOS系统会根据设备的分辨率自动加载1倍图、2倍图、3倍图，而方法**resizableImageWithCapInsets**中的上下左右是以像素为单位，这就要求在使用时，根据**x**倍图，来设置对应的边距，例如：
 
-``` javascript
+``` swift
 let image = UIImage(named: "image_name")
 //1倍图时上下左右边距都是25
 let padding = 25 * (image?.scale)!
@@ -115,7 +115,7 @@ button.setBackgroundImage(resizeImage!, forState: UIControlState.Normal)
 
 示例代码如下：
 
-``` javascript
+``` swift
 let image = UIImage(named: "tile")
 let resizeImage = image?.resizableImageWithCapInsets(UIEdgeInsetsZero)
 self.bkImageView.image = resizeImage
@@ -144,7 +144,7 @@ Xcode提供了Asset Catalogs的方式来管理图片资源，Asset Catalogs提�
 可变区：操作线1与操作线2指定的区域，在拉伸时，会根据最终尺寸改变此区域的大小<br>
 删除区：操作线2与操作线3指定的区域（白色半透明层），可以简单的理解为，此区域在拉伸时会被直接删除。使用方法跟普通图片一样，代码如下：
 
-``` javascript
+``` swift
  let image = UIImage(named: "image_asset_name")
  button.setBackgroundImage(image, forState: UIControlState.Normal)
 ```
@@ -160,7 +160,7 @@ Xcode提供了Asset Catalogs的方式来管理图片资源，Asset Catalogs提�
 {% img /images/article/Swift之贪婪的UIButton/image_8.png %}
 
 
-``` javascript
+``` swift
 let image = UIImage(named: "user_avatar")
 self.button.setImage(image, forState: UIControlState.Normal)
 self.button.imageView?.layer.cornerRadius = self.button.frame.width / 2
@@ -172,7 +172,7 @@ UIKit中没有复选框组件怎么办？
 {% img /images/article/Swift之贪婪的UIButton/image_9.png %}
 
 
-``` javascript
+``` swift
     func checkBoxButton() {
         let frame = CGRectMake(68, 79, 300, 128)
         let button = UIButton(type: UIButtonType.Custom)
@@ -199,7 +199,7 @@ UIKit中没有复选框组件怎么办？
 
 很多应用中发短信倒计时功能，一般都会将NSTimer与UIButton结合来实现此功能，如果UIButton是这么初使化的：
 
-``` javascript
+``` swift
 let button = UIButton(type: UIButtonType.System)
 ```
 在测试时会发现，当定时器每隔一秒更改标题时，会有闪烁现象，将**UIButtonType.System**更改为**UIButtonType.Custom**即可
@@ -208,7 +208,7 @@ let button = UIButton(type: UIButtonType.System)
 [http://00red.com/download/Swift之贪婪的UIButton/ILCountDownButton.swift](http://00red.com/download/Swift之贪婪的UIButton/ILCountDownButton.swift)<br>
 使用示例如下：
 
-``` javascript
+``` swift
 let frame = CGRectMake(50, 50, 100, 40)
 let countButton = ILCountDownButton(count: 5)
 countButton.frame = frame
@@ -224,7 +224,7 @@ UIButton的frame会直接影响到**setImage**及**setBackgroundImage**的显示
 
 将UIButton的父视图(superView)的点击事件占有，所有的触控操作全部转嫁到UIButton控件上。iOS在处理事件分发时，分为两个步骤：第一步，查找哪一个UI组件响应此事件，第二步，事件处理，响应者链。要实现事件的转嫁，在第一步中来处理即可，代码如下：
 
-``` javascript
+``` swift
 class ILGreedButton: UIButton {
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {

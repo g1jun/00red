@@ -10,7 +10,7 @@ categories: experience
 ## 1.swift为什么不需要main
 
 在c/c++及其它语言中都有一个main函数，程序从main作为起点，开始执行程序，如下：
-``` ruby
+``` swift
 int main(int argc, const char * argv[]) {
     printf("Hello, World!\n");
     return 0;
@@ -46,7 +46,7 @@ main函数实际上是一个特殊的函数，为了能找到程序入口，大�
 ## 4.偷天换日，替换隐式入口函数top_level_code()
 在编译环节，编译器将**main.swift**非声明代码作为**top_level_code()**来执行，为了能够让程序执行我们的入口函数，而不是**main.swift**代码，需要声明并实现这个特殊的**top_level_code()**函数
 
-``` ruby
+``` swift
 void top_level_code();
 ```
 
@@ -82,7 +82,7 @@ void top_level_code();
  
  我们也可以在Swift中将入口参数打印出来，注意C中类型与Swift的类型转换
 
-``` ruby
+``` swift
 //将C语言int型转换为Swift中的Int
 let cout = Int(C_ARGC)
 println("all->\(cout)")
@@ -96,12 +96,12 @@ for index in 0...(end) {
 ```
 
 **点击运行完成后**->将项目Products目录入的文件直接拖入终端中->在后面添加空格"aaa"空格"bbb",类似下面的格式
-``` ruby
+``` swift
 /Users/mac/Library/Developer/Xcode/DerivedData/ILHelloWorld-fvywvzypiomcffbiuxdxwwdaeued/Build/Products/Debug/ILHelloWorld "aaa" "bbb"
 ```
 
 打印运行结果如下：
-``` ruby
+``` swift
 all->3
 Optional("/Users/mac/Library/Developer/Xcode/DerivedData/ILHelloWorld-fvywvzypiomcffbiuxdxwwdaeued/Build/Products/Debug/ILHelloWorld")
 Optional("aaa")
