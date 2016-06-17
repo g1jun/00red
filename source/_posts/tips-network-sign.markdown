@@ -12,6 +12,8 @@ categories: experience
 
 {% img /images/article/Swift高频网络请求利用签名丢弃过时结果/image_0.png %}
 
+<!-- more -->
+
 短时间内连续触发三次请求1、2、3，请求结果返回顺序不确定（上图2、3、1为一种可能情况），本文将给出一种简单准只处理最后一次请求的方法
 
 
