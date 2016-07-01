@@ -16,7 +16,7 @@ footer: true
 
 介绍:曾任职盛大文学、奇点国际，现就职于铁甲二手机
 
-邮箱:g1jun@163.com
+邮箱:"g1jun" + "@" + "163.com"
 
 方向:IOS/Android
 

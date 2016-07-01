@@ -56,7 +56,7 @@ class ILSearchController: UIViewController {
         let uuid = NSUUID().UUIDString
         self.signUUID = uuid
         ILHTTPRequest.requestRecommendWords(inputKeyword, successCallBack: { (recommendWords) -> (Void) in
-            //丢掉过时请求,注意下页的uuid，每一次都会不一样
+            //丢掉过时请求,注意下面的uuid，每一次都会不一样
             if self.signUUID != uuid {
                 return
             }
