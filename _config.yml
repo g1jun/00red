@@ -73,7 +73,7 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
 	type: git
-	repo: git@git.coding.net:g1jun/g1jun.git
+	repo: git@00red.git.coding.net:g1jun/g1jun.git
 	branch: master
 
 #自定义内容

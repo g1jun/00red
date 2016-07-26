@@ -245,3 +245,9 @@ self.webView.stringByEvaluatingJavaScriptFromString("document.documentElement.st
 self.webView.stringByEvaluatingJavaScriptFromString("document.documentElement.style.webkitTouchCallout='none';")        
 ```
 
+## 2016.7.14更新
+### 最佳交互协议
+开发过程中，频繁变更或者增加方法，使得H5与Native都要付出很大的维护成本。我们推荐制定交互协议,减少交互方法的变更，转而维护协议。示例如下：
+
+{% img /images/article/Swift中UIWebView与Javascript的交互/image_5.png %}
+
