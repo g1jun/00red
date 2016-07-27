@@ -155,7 +155,7 @@ class ILDemoView: ILXibView {
 
 新建Xib/Storyboard文件，添加一个UIView控件，并将此控件的Class属性设置为**ILDemoView**
 
-{% img /images/article/Swift之xib模块化设计/image_2.png %}
+{% img /images/article/Swift之xib模块化设计/image_3.png %}
 
 
 #### Tips
