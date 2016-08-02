@@ -96,6 +96,11 @@ import UIKit
         
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.frame = self.bounds
+    }
+    
     private func getXibName() -> String {
         let clzzName = NSStringFromClass(self.classForCoder)
         let nameArray = clzzName.componentsSeparatedByString(".")
@@ -163,3 +168,8 @@ class ILDemoView: ILXibView {
 
 
 ### [直接下载demo](/download/Swift之xib模块化设计/ILXibDemo.zip)
+
+
+## 2016.8.2更新
+
+感谢 <font color='red'>霰雪</font> 检查出ILXibView在6S不居中对齐问题，文章已经更新，感谢大家的支持。

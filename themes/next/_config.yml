@@ -278,6 +278,7 @@ duoshuo_info:
   ua_enable: true
   admin_enable: true
   user_id: 8245025
+  data_author_key: 1
   #admin_nickname: Author
 
 
