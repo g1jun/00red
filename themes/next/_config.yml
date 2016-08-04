@@ -58,10 +58,10 @@ menu_icons:
 # Scheme Settings
 # ---------------------------------------------------------------
 
-# Schemes
+# Schemes Pisces
 # scheme: Muse
 #scheme: Mist
-scheme: Pisces
+scheme: Mist
 
 
 # ---------------------------------------------------------------
@@ -169,7 +169,7 @@ sidebar:
   #  - always  expand for all pages automatically
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  Totally remove sidebar including sidebar toggler.
-  display: post
+  display: hide
   #display: always
   #display: hide
   #display: remove
@@ -305,9 +305,9 @@ facebook_sdk:
 # Show number of visitors to each article.
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
-  enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  enable: true
+  app_id: Eji3VwFLvAPuwXU6JgGCUUfU-gzGzoHsz
+  app_key: X22jIhjBlDLvlQAX9pq1P8N4
 
 # Show PV/UV of the website/page with busuanzi.
 # Get more information on http://ibruce.info/2015/04/04/busuanzi/
