@@ -195,8 +195,22 @@
         {% include 'reward.swig' %}
       {% endif %}
     </div>
+    
+
+{% if not is_home() %}
+
+  {% if theme.copy_right.enable %}
+     {% include 'copy-right.swig' %}
+  {% endif %}
+
+  {% if theme.donate.enable %}
+     {% include 'donate.swig' %}
+  {% endif %}
+
+{% endif %}
 
     <footer class="post-footer">
+
       {% if post.tags and post.tags.length and not is_index %}
         <div class="post-tags">
           {% for tag in post.tags %}
