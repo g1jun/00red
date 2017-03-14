@@ -7,35 +7,37 @@ keywords: Swift,一叶博客,Swift教程,Swift 单例,swift单态,swift线程同
 categories: experience
 ---
 
+## 本文已经更新到Swift3.0语法
+
 ## 一、单例实现
 上一篇文章[《Swift设计模式之单例(Singleton)》](http://00red.com/blog/2014/07/30/swiftshe-ji-mo-shi-zhi-dan-li-singleton/)我们给出了单例的设计模式，直接给出了线程安全的实现方法。单例的实现有多种方法，如下面:
 
 ``` swift 单例实现
-public class SwiftSingleton {   
-    public class var shared: SwiftSingleton {   
-    if !Inner.instance {   
-        Inner.instance = SwiftSingleton()   
-        }   
-        return Inner.instance!   
+public class SwiftSingleton {
+    
+    private static var instance: SwiftSingleton?
+    
+    public class var shared: SwiftSingleton {
+        if self.instance == nil {
+            self.instance = SwiftSingleton()
+        }
+        return self.instance!
     }
     
     private init() {
-    }   
-       
-    private struct Inner {   
-        private static var instance: SwiftSingleton?   
-    }   
+    }
+    
 }
 
 ```
 <!-- more -->
 
-这段代码的实现，在shared中进行条件判断，如果*Inner.instance*.为空就生成一个实例，这段代码很简单看出当线程同时访问*SwiftSingleton.shared*方法时，会有如下问题出现，线程A判断*Inner.instance*为空，进入if语句后立即切换到线程B执行，线程B也进行判断，由于线程A只是进入了if语句，这行代码
+这段代码的实现，在shared中进行条件判断，如果*instance*.为空就生成一个实例，这段代码很简单看出当线程同时访问*SwiftSingleton.shared*方法时，会有如下问题出现，线程A判断*instance*为空，进入if语句后立即切换到线程B执行，线程B也进行判断，由于线程A只是进入了if语句，这行代码
 ``` swift
-Inner.instance = SwiftSingleton()
+self.instance = SwiftSingleton()
 ```
 
-并没有执行，这时Inner.instance还是为空，纯种B也进行了if语句，这种情况下就会创建多个实例，没有保证实例的唯一性。上面的理论分析基本上任何一篇文章都会讲的，也不能理解，关键问题，如何测试上面的理论是否正确呢？
+并没有执行，这时instance还是为空，纯种B也进行了if语句，这种情况下就会创建多个实例，没有保证实例的唯一性。上面的理论分析基本上任何一篇文章都会讲的，也不能理解，关键问题，如何测试上面的理论是否正确呢？
 
 ## 二、线程抢占原理
 
@@ -46,51 +48,51 @@ Inner.instance = SwiftSingleton()
 实现代码如下：
 
 ``` swift
-class SwiftSingletonTest: XCTestCase {   
-    let condition = NSCondition()   
-    let mainCondition = NSCondition()   
-    let singleton: NSMutableArray = NSMutableArray()   
-    let threadNumbers = 1000   
-    var count = 0   
-       
-       
-    func testSingletonThreadSafe() {   
-           
-        for index in 0...threadNumbers {   
-            NSThread.detachNewThreadSelector("startNewThread", 
-            toTarget: self, withObject: nil)   
-        }   
-        condition.broadcast()   
-        mainCondition.lock()   
-        mainCondition.wait()   
-        mainCondition.unlock()   
-        checkOnlyOne()   
+class SwiftSingletonTest: XCTestCase {
+    let condition = NSCondition()
+    let mainCondition = NSCondition()
+    var singletonArray = [SwiftSingleton]()
+    let threadNumbers = 1000
+    var count = 0
+    
+    
+    func testSingletonThreadSafe() {
+        
+        for _ in 0...threadNumbers {
+            Thread.detachNewThreadSelector(#selector(SwiftSingletonTest.startNewThread),
+                                           toTarget: self, with: nil)
+        }
+        condition.broadcast()
+        mainCondition.lock()
+        mainCondition.wait()
+        mainCondition.unlock()
+        checkOnlyOne()
+    }
+    
+    func startNewThread() {
+        condition.lock()
+        condition.wait()
+        condition.unlock()
+        let temp = SwiftSingleton.shared
+        count += 1
+        singletonArray.append(temp)
+        if count >= threadNumbers {
+            mainCondition.signal()
+        }
+    }
+    
+    func checkOnlyOne () {
+        let one = singletonArray[0]
+        for temp  in singletonArray {
+            if(temp !== one) {
+                XCTFail("singleton error!");
+                break;
+            }
+        }
     }   
-       
-    func startNewThread() {   
-        condition.lock()   
-        condition.wait()   
-        condition.unlock()   
-        let temp = SwiftSingleton.shared   
-        count++   
-        singleton.addObject(temp)   
-        if count >= threadNumbers {   
-            mainCondition.signal()   
-        }   
-    }   
-       
-    func checkOnlyOne () {   
-        let one = singleton[0] as SwiftSingleton   
-        for temp : AnyObject  in singleton {   
-            let newTemp = temp as SwiftSingleton   
-            if(newTemp !== one) {   
-                XCTFail("singleton error!");   
-                break;   
-            }   
-        }   
-    }   
-   
+    
 }
+
 ```
 这段代码主要使用了NSCondition进行同步，其中NSCondition分为两组，condition主要负责除主线程外的线程，在for语句中会创建并启动N（threadNumbers）个线程，每个线程启动后都会去执行startNewThread方法，执行到语句
 ``` swift
@@ -117,56 +119,29 @@ class SwiftSingletonTest: XCTestCase {
 ## 三、其它测试结果
 1、最简单的实现
 ``` swift
-public class Singleton {
-    //提供静态访问方法
-    public class var shared: Singleton {
-        return Inner.instance
-    }
+public class SwiftSingleton {
+    
+    //通过关键字static来保存实例引用
+    private static let instance = SwiftSingleton()
     
     //私有化构造方法
     private init() {
     }
     
-    //通过结构体来保存实例引用
-    private struct Inner {
-        private static let instance = Singleton()
-    }
-}
-```
-解释：上述代表也实现了延迟加载技术
-``` swift
-private static let instance = Singleton()
-```
-首次访问Inner.instance时才会创建SwiftSingleton,此处的延迟加载由Swift语言原生提供。
-	测试结果：通过
-2、使用GCD技术实现的单例模式
-``` swift
-public class Singleton {
-    
     //提供静态访问方法
-    public class var shared: Singleton {
-    dispatch_once(&Inner.token) {
-        Inner.instance = Singleton()
-        }
-        return Inner.instance!
-    }
-
-    
-    //私有化构造方法
-    private init() {
-        
-    }
-    
-    //通过结构体保存实例的引用
-    private struct Inner {
-        private static var instance: Singleton?
-        private static var token: dispatch_once_t = 0
+    public static var shared: SwiftSingleton {
+        return self.instance
     }
     
 }
 ```
-
+解释：上述也是延迟加载
+``` swift
+private static let instance = SwiftSingleton()
+```
+首次调用self.instance时才会创建SwiftSingleton,此处的延迟加载由Swift语言原生提供。
 	测试结果：通过
+
 
 ## 四、测试说明
 
