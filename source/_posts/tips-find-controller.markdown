@@ -7,6 +7,8 @@ keywords: 事件响应,界面跳转,查找UIViewController
 categories: experience
 ---
 
+## 本文已经更新到Swift3.0语法
+
 ## 一、解决的问题
 在UIView中快速查找对应UIViewController、UINavigationController或者指定控制器的方法，原理根据事件的响应链，向上查找。
 
@@ -25,17 +27,18 @@ extension UIView {
         return self.findControllerWithClass(UINavigationController.self)
     }
     
-    func findControllerWithClass<T>(clzz: AnyClass) -> T? {
-        var responder = self.nextResponder()
+    func findControllerWithClass<T>(_ clzz: AnyClass) -> T? {
+        var responder = self.next
         while(responder != nil) {
-            if (responder!.isKindOfClass(clzz)) {
+            if (responder!.isKind(of: clzz)) {
                 return responder as? T
             }
-            responder = responder?.nextResponder()
+            responder = responder?.next
         }
         
         return nil
     }
+    
     
 }
 

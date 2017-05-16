@@ -91,8 +91,8 @@ var single2 = SwiftSingleton.shared
 
 single2.name = "2"
 
-println("------->\(single1.name)")
-println("------->\(single2.name)")
+print("------->\(single1.name)")
+print("------->\(single2.name)")
 
 ```
 

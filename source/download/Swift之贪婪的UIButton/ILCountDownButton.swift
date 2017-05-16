@@ -11,85 +11,99 @@ import UIKit
 class ILCountDownButton: UIButton {
     
     
-    private var timer: NSTimer!
+    private var timer: Timer!
     private var countDown = 0
-    private var originCoutDown: Int!
+    var timeWait = 60
     //回调接口
-    var restartCallback: (() -> (Void))?
+    var restartCallback: (() -> (Bool))?
     //动态计数时，加在数字前面的字符串
     var countFrontString: String = ""
     //动态计数时，加在数字后面的字符串
     var countRearString: String = ""
 
+
     convenience init(count: Int) {
-        self.init(frame: CGRectZero)
-        self.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        self.titleLabel?.font = UIFont.systemFontOfSize(17)
-        self.originCoutDown = count
-        self.countDown = count
-        super.addTarget(self, action: "restart", forControlEvents: UIControlEvents.TouchUpInside )
+        self.init(frame: CGRect.zero)
+        self.timeWait = count
+        self.doInit()
+    }
+    
+    private func doInit() {
+        self.setTitleColor(UIColor.white, for: .normal)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        super.addTarget(self, action: #selector(ILCountDownButton.restart), for: .touchUpInside)
+    }
+    
+    
+    override func awakeFromNib() {
+        self.doInit()
     }
     
     //开始倒计时
     func restart() {
-        self.countDown = self.originCoutDown
+        let validate = self.restartCallback == nil ? false : self.restartCallback!()
+        if !validate {
+            return
+        }
+        self.countDown = self.timeWait
         self.heartbeat()
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "heartbeat", userInfo: nil, repeats: true)
-        self.enabled = false
-        self.restartCallback?()
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ILCountDownButton.heartbeat), userInfo: nil, repeats: true)
+        self.isEnabled = false
+        
     }
     
     //设置可点击时标题
     func setTitleForRestart(title: String) {
-        super.setTitle(title, forState: UIControlState.Normal)
+        super.setTitle(title, for: .normal)
     }
     
     //设置可点击时背景图片
     func setBackgroundImageForRestart(image: UIImage) {
-        super.setBackgroundImage(image, forState: UIControlState.Normal)
-        self.setBackgroundImageForHighlighted(image)
+        super.setBackgroundImage(image, for: .normal)
+        self.setBackgroundImageForHighlighted(image: image)
     }
     
     //设置计数背景图片
     func setBackgroundImageForCount(image: UIImage) {
-        super.setBackgroundImage(image, forState: UIControlState.Disabled)
+        super.setBackgroundImage(image, for: .disabled)
     }
     
     
 //////////////////////////////////////////////////////////////////////////
     
-    override func setTitle(title: String?, forState state: UIControlState) {
-        assertionFailure("please use setTitleForRestart")
+    override func setTitle(_ title: String?, for state: UIControlState) {
+//        assertionFailure("please use setTitleForRestart")
     }
     
-    override func addTarget(target: AnyObject?, action: Selector, forControlEvents controlEvents: UIControlEvents) {
-        assertionFailure("please use buttonClickedCallback")
+    override func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
+//        assertionFailure("please use buttonClickedCallback")
+
     }
     
     
     private func setBackgroundImageForHighlighted(image: UIImage) {
-        super.setBackgroundImage(image, forState: UIControlState.Highlighted)
+        super.setBackgroundImage(image, for: .highlighted)
         
     }
     
     
     @objc private func heartbeat() {
-        self.countDown--
+        self.countDown -= 1
         if self.countDown == 0 {
             self.normalState()
             return
         }
         let countDwonStr = self.countFrontString + String(self.countDown) + self.countRearString
-        super.setTitle(countDwonStr, forState: UIControlState.Disabled)
+        super.setTitle(countDwonStr, for: .disabled)
     }
     
-    private func normalState() {
+    func normalState() {
         if self.timer == nil {
             return
         }
         self.timer.invalidate()
         self.timer = nil
-        self.enabled = true
+        self.isEnabled = true
     }
     
 
