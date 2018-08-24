@@ -22,4 +22,3 @@ footer: true
 
 博客:[CSDN](http://blog.csdn.net/g1jun)  [OSChina](http://my.oschina.net/taptale)
 
-文章阅读统计说明：博客前期未加入统计，数据来自Cocochina及CSDN博客阅读数累加
