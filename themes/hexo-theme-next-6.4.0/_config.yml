@@ -310,8 +310,8 @@ codeblock:
   #description: ex. subscribe to my blog by scanning my public wechat account
 
 # Reward
-reward_comment: 喜欢这遍文章，就支持一下作者
-wechatpay: /images/wechat.png
+#reward_comment: 喜欢这遍文章，就支持一下作者
+#wechatpay: /images/wechat.png
 #alipay: /images/alipay.jpg
 #bitcoin: /images/bitcoin.png
 
