@@ -22,3 +22,5 @@ footer: true
 
 博客:[CSDN](http://blog.csdn.net/g1jun)  [OSChina](http://my.oschina.net/taptale)
 
+评论说明：由于多说关闭，所有网友的评论丢失，请大家理解
+
